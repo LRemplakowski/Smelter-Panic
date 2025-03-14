@@ -10,6 +10,7 @@ namespace SmelterGame.Crafting
     public delegate void CraftingCompletedCallback(in Guid processorID, bool isSuccess, CraftingYield result);
     public delegate void CraftingStartedCallback(in Guid processorID, IRecipeData recipe, in Func<float> progressDelegate);
     public delegate void ProcessorUnlockedDelegate(IProcessorDefinition processorDefinition);
+    public delegate bool RecipeValidationDelegate(in Guid processorID, IRecipeData recipeData);
 
     public class ProcessorManager : SerializedMonoBehaviour
     {
@@ -54,7 +55,7 @@ namespace SmelterGame.Crafting
             return true;
         }
 
-        public bool CanCraftRecipe(Guid processorID, IRecipeData recipe)
+        public bool CanCraftRecipe(in Guid processorID, IRecipeData recipe)
         {
             return GetUnlockedProcessors().TryGetValue(processorID, out var processor) && processor.CanCraftRecipe(recipe);
         }
@@ -81,7 +82,7 @@ namespace SmelterGame.Crafting
 
         private void EnsureProcessorFactory()
         {
-            _processorFactory = new DefaultProcessorFactory(GetInventory());
+            _processorFactory ??= new DefaultProcessorFactory(GetInventory());
         }
 
         private void CraftingFinished(in Guid processorID, bool isSuccess, CraftingYield result)

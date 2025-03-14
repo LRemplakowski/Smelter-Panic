@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 170330e6fe4c6a14ea81c37609733859, type: 2}
     - {fileID: 11400000, guid: 2b4c880a3dfe9084f912226fe3e5bb5d, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -29,8 +30,8 @@ MonoBehaviour:
       Entry: 7
       Data: 0|SmelterGame.Crafting.CraftingYield, Assembly-CSharp
     - Name: <YieldItem>k__BackingField
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: <YieldAmount>k__BackingField
       Entry: 3
       Data: 1
@@ -49,7 +50,7 @@ MonoBehaviour:
       Data: 2|SmelterGame.Crafting.CraftingRequirement, Assembly-CSharp
     - Name: <ProcessableItem>k__BackingField
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: <RequiredAmount>k__BackingField
       Entry: 3
       Data: 1
