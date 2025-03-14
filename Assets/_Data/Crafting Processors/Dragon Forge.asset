@@ -37,3 +37,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _name: Dragon Forge
+  _icon: {fileID: 21300000, guid: e997bf7992a61f8438d4f1dd10c76e76, type: 3}

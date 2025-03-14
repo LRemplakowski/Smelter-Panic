@@ -63,5 +63,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _name: Smelt Iron Ore
   _processingTime: 3
   _successChance: 1

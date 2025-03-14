@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SmelterGame.Inventory
 {
-    public delegate void InventoryUpdatedDelegate(in Guid itemID, in int amount);
+    public delegate void InventoryUpdatedDelegate(IItem item, int amount);
 
     public class InventoryManager : SerializedMonoBehaviour, IInventory
     {
@@ -24,6 +24,11 @@ namespace SmelterGame.Inventory
             _inventoryContentsPreset?.GetPresetContents().ForEach(entry => AddItem(entry.Item, entry.Amount));
         }
 
+        private void Start()
+        {
+            _inventoryContents.Values.ForEach(inventoryEntry => OnInventoryUpdated?.Invoke(inventoryEntry.Item, inventoryEntry.Amount));
+        }
+
         public void AddItem(IItem item, int amount = 1)
         {
             var itemID = item.GetID();
@@ -36,7 +41,7 @@ namespace SmelterGame.Inventory
             {
                 existingEntry.Amount += amount;
                 _inventoryContents[itemID] = existingEntry;
-                OnInventoryUpdated?.Invoke(existingEntry.Item.GetID(), existingEntry.Amount);
+                OnInventoryUpdated?.Invoke(existingEntry.Item, existingEntry.Amount);
             }
             else
             {
@@ -45,7 +50,7 @@ namespace SmelterGame.Inventory
                     Item = item,
                     Amount = amount
                 };
-                OnInventoryUpdated?.Invoke(item.GetID(), amount);
+                OnInventoryUpdated?.Invoke(item, amount);
             }
         }
 
@@ -75,7 +80,7 @@ namespace SmelterGame.Inventory
                 {
                     _inventoryContents[itemID] = entry;
                 }
-                OnInventoryUpdated?.Invoke(entry.Item.GetID(), entry.Amount);
+                OnInventoryUpdated?.Invoke(entry.Item, entry.Amount);
                 return true;
             }
             return false;

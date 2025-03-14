@@ -11,11 +11,14 @@ namespace SmelterGame.Inventory
 
         [SerializeField]
         private string _name;
+        [SerializeField]
+        private Sprite _icon;
         [SerializeField, MultiLineProperty]
         private string _description;
 
         public Guid GetID() => _guid;
         public string GetName() => _name;
+        public Sprite GetIcon() => _icon;
         public string GetDescription() => _description;
     }
 }

@@ -7,6 +7,7 @@ namespace SmelterGame.Crafting
     {
         Guid GetID();
 
+        string GetName();
         double GetSuccessChance();
         float GetProcessingTime();
         IReadOnlyCollection<CraftingRequirement> GetRequiredResources();

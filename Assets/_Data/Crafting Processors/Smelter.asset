@@ -45,3 +45,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _name: Smelter
+  _icon: {fileID: 21300000, guid: e90b73e232dc7744cbcf280f3c34bbaf, type: 3}

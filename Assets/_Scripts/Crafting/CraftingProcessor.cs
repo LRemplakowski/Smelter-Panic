@@ -28,7 +28,7 @@ namespace SmelterGame.Crafting
         public bool CraftRecipe(IRecipeData recipeData, out Func<float> progressDelegate)
         {
             progressDelegate = default;
-            bool isRecipeAcceptedByProcessor = IsValidRecipe(_definition.GetAcceptedRecipes(), recipeData);
+            bool isRecipeAcceptedByProcessor = IsValidRecipe(GetAcceptedRecipes(), recipeData);
             if (isRecipeAcceptedByProcessor)
             {
                 if (!ConsumeResources(_resourceInventory, recipeData))
@@ -44,10 +44,18 @@ namespace SmelterGame.Crafting
             return false;
         }
 
+        public bool CanCraftRecipe(IRecipeData recipe)
+        {
+            return IsValidRecipe(GetAcceptedRecipes(), recipe) && HasAllRequiredResourcesInInventory(recipe, _resourceInventory);
+        }
+
         private void CraftingFinished(in Guid processorID, bool isSuccess, CraftingYield result)
         {
-            AddCraftingYieldToInventory(_resourceInventory, result);
-            OnCraftingFinished?.Invoke(processorID, isSuccess, result);
+            if (isSuccess)
+            {
+                AddCraftingYieldToInventory(_resourceInventory, result);
+            }
+            OnCraftingFinished?.Invoke(in processorID, isSuccess, result);
         }
 
         private static bool ConsumeResources(IInventory inventory, IRecipeData recipe)
@@ -63,6 +71,11 @@ namespace SmelterGame.Crafting
                 }
             }
             return result;
+        }
+
+        private static bool HasAllRequiredResourcesInInventory(IRecipeData recipe, IInventory inventory)
+        {
+            return recipe.GetRequiredResources().All(resource => inventory.ContainsItem(resource.ProcessableItem, resource.RequiredAmount));
         }
 
         private static void AddCraftingYieldToInventory(IInventory inventory, CraftingYield craftingYield)

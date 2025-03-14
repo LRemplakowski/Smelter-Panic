@@ -25,4 +25,5 @@ MonoBehaviour:
       Entry: 2
       Data: 3f5ec2f1f32c4a19a7dde6ef80de499b
   _name: Dragon Scale
+  _icon: {fileID: 21300000, guid: 74c8dfa67a44fe946b232a9c74bdbbca, type: 3}
   _description: Very rare scale granting high defensive properties

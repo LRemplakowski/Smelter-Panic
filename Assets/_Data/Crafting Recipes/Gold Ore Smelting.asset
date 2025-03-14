@@ -22,6 +22,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: _recipeID
+      Entry: 2
+      Data: b417d3c6f82a44608c419c3cd013ac09
     - Name: _craftingResult
       Entry: 7
       Data: 0|SmelterGame.Crafting.CraftingYield, Assembly-CSharp
@@ -59,5 +62,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _name: Smelt Gold Ore
   _processingTime: 3
   _successChance: 1

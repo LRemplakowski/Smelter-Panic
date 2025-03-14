@@ -12,6 +12,8 @@ namespace SmelterGame.Crafting
         [SerializeField]
         private Guid _recipeID = Guid.NewGuid();
         [Title("Core Config")]
+        [SerializeField]
+        private string _name;
         [SerializeField, MinValue(0.1f)]
         private float _processingTime = 1f;
         [SerializeField, PropertyRange(0.001d, 1d)]
@@ -23,6 +25,7 @@ namespace SmelterGame.Crafting
         private List<CraftingRequirement> _requiredResources = new();
 
         public Guid GetID() => _recipeID;
+        public string GetName() => _name;
         public CraftingYield GetCraftingResult() => _craftingResult;
         public float GetProcessingTime() => _processingTime;
         public IReadOnlyCollection<CraftingRequirement> GetRequiredResources() => _requiredResources;

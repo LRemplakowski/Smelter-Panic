@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using SmelterGame.Inventory;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace SmelterGame.Crafting
 {
     public delegate void CraftingCompletedCallback(in Guid processorID, bool isSuccess, CraftingYield result);
     public delegate void CraftingStartedCallback(in Guid processorID, IRecipeData recipe, in Func<float> progressDelegate);
+    public delegate void ProcessorUnlockedDelegate(IProcessorDefinition processorDefinition);
 
     public class ProcessorManager : SerializedMonoBehaviour
     {
@@ -19,31 +21,42 @@ namespace SmelterGame.Crafting
         [Title("Runtime")]
         [ShowInInspector, DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout, IsReadOnly = true)]
         private readonly Dictionary<Guid, IProcessor> _unlockedProcessors = new();
+        [ShowInInspector, ReadOnly]
+        private readonly HashSet<Guid> _activeProcessors = new();
 
         public static event CraftingStartedCallback OnCraftingStart;
         public static event CraftingCompletedCallback OnCraftingComplete;
+        public static event ProcessorUnlockedDelegate OnProcessorUnlocked;
+
+        private IProcessorFactory _processorFactory;
 
         private void Awake()
+        {
+            EnsureProcessorFactory();
+        }
+
+        private void Start()
         {
             UnlockDefaultProcessors();
         }
 
-        private void UnlockDefaultProcessors()
-        {
-            _defaultUnlockedProcessors.ForEach(definition => UnlockProcessor(definition));
-        }
-
         public bool UnlockProcessor(IProcessorDefinition processorDefinition)
         {
-            if (_unlockedProcessors.ContainsKey(processorDefinition.GetID()))
+            if (GetUnlockedProcessors().ContainsKey(processorDefinition.GetID()))
             {
                 Debug.LogWarning($"{nameof(ProcessorManager)} >>> Tried to unlock processor {processorDefinition} but it is already unlocked!");
                 return false;
             }
-            var processor = new CraftingProcessor(processorDefinition, _inventory);
+            var processor = GetProcessorFactory().Create(processorDefinition);
             processor.OnCraftingFinished += CraftingFinished;
-            _unlockedProcessors.Add(processor.GetID(), processor);
+            GetUnlockedProcessors().Add(processor.GetID(), processor);
+            OnProcessorUnlocked?.Invoke(processorDefinition);
             return true;
+        }
+
+        public bool CanCraftRecipe(Guid processorID, IRecipeData recipe)
+        {
+            return GetUnlockedProcessors().TryGetValue(processorID, out var processor) && processor.CanCraftRecipe(recipe);
         }
 
         [BoxGroup("Editor Buttons")]
@@ -54,21 +67,60 @@ namespace SmelterGame.Crafting
         [Button, HideInEditorMode]
         public void RunRecipe(Guid processorID, IRecipeData recipe)
         {
-            if (_unlockedProcessors.TryGetValue(processorID, out var processor))
+            if (!IsActiveProcessor(processorID) && GetUnlockedProcessors().TryGetValue(processorID, out var processor))
             {
                 processor.CraftRecipe(recipe, out var progressDelegate);
                 CraftingStarted(in processorID, recipe, in progressDelegate);
             }
         }
 
+        private void UnlockDefaultProcessors()
+        {
+            GetDefaultUnlockedProcessors().ForEach(definition => UnlockProcessor(definition));
+        }
+
+        private void EnsureProcessorFactory()
+        {
+            _processorFactory = new DefaultProcessorFactory(GetInventory());
+        }
+
         private void CraftingFinished(in Guid processorID, bool isSuccess, CraftingYield result)
         {
+            _activeProcessors.Remove(processorID);
             OnCraftingComplete?.Invoke(in processorID, isSuccess, result);
         }
 
         private void CraftingStarted(in Guid processorID, IRecipeData recipe, in Func<float> progressDelegate)
         {
+            _activeProcessors.Add(processorID);
             OnCraftingStart?.Invoke(in processorID, recipe, in progressDelegate);
+        }
+
+        private IInventory GetInventory() => _inventory;
+        private IProcessorFactory GetProcessorFactory() => _processorFactory;
+        private ICollection<IProcessorDefinition> GetDefaultUnlockedProcessors() => _defaultUnlockedProcessors;
+        private Dictionary<Guid, IProcessor> GetUnlockedProcessors() => _unlockedProcessors;
+        private bool IsActiveProcessor(Guid processorID) => _activeProcessors.Contains(processorID);
+
+
+        private interface IProcessorFactory
+        {
+            IProcessor Create(IProcessorDefinition definition);
+        }
+
+        private class DefaultProcessorFactory : IProcessorFactory
+        {
+            private readonly IInventory _processorInventory;
+
+            public DefaultProcessorFactory(IInventory processorInventory)
+            {
+                _processorInventory = processorInventory;
+            }
+
+            public IProcessor Create(IProcessorDefinition processorDefinition)
+            {
+                return new CraftingProcessor(processorDefinition, _processorInventory);
+            }
         }
     }
 }

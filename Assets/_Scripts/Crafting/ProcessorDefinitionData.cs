@@ -10,11 +10,16 @@ namespace SmelterGame.Crafting
     {
         [SerializeField]
         private Guid _guid = Guid.NewGuid();
-
+        [SerializeField]
+        private string _name;
+        [SerializeField]
+        private Sprite _icon;
         [SerializeField]
         private List<IRecipeData> _acceptedRecipes = new();
 
         public Guid GetID() => _guid;
+        public string GetName() => _name;
+        public Sprite GetIcon() => _icon;
         public IReadOnlyCollection<IRecipeData> GetAcceptedRecipes() => _acceptedRecipes;
     }
 }

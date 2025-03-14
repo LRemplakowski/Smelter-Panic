@@ -25,4 +25,5 @@ MonoBehaviour:
       Entry: 2
       Data: 0c96c484a685439e85759f1dfaeddba2
   _name: Gold Ore
+  _icon: {fileID: 21300000, guid: f46c6872a63a3564fa8d1719c6202d70, type: 3}
   _description: Raw material used to create gold-based items
