@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 
 namespace SmelterGame.Crafting
 {
     public interface IProcessorDefinition
     {
-        ICollection<IRecipeData> GetAcceptedRecipes();
+        Guid GetID();
+        IReadOnlyCollection<IRecipeData> GetAcceptedRecipes();
     }
 }

@@ -1,53 +1,78 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using SmelterGame.Inventory;
+using UnityEngine;
 
 namespace SmelterGame.Crafting
 {
     public class CraftingProcessor : IProcessor
     {
+        public event CraftingCompletedCallback OnCraftingFinished;
+
+        private readonly Guid _processorID;
         private readonly IProcessorDefinition _definition;
         private readonly IInventory _resourceInventory;
 
         public CraftingProcessor(IProcessorDefinition definition, IInventory resourceInventory)
         {
             _definition = definition;
+            _processorID = definition.GetID();
             _resourceInventory = resourceInventory;
         }
+
+        public Guid GetID() => _processorID;
+        public IReadOnlyCollection<IRecipeData> GetAcceptedRecipes() => _definition.GetAcceptedRecipes();
 
         public bool CraftRecipe(IRecipeData recipeData, out Func<float> progressDelegate)
         {
             progressDelegate = default;
-            if (IsValidRecipe(recipeData) && HasRequiredResources(_resourceInventory, recipeData))
+            bool isRecipeAcceptedByProcessor = IsValidRecipe(_definition.GetAcceptedRecipes(), recipeData);
+            if (isRecipeAcceptedByProcessor)
             {
-                var craftingProcess = new CraftingProcess(recipeData.GetProcessingTime(), recipeData.GetCraftingResult());
+                if (!ConsumeResources(_resourceInventory, recipeData))
+                {
+                    return false;
+                }
+                var craftingProcess = new CraftingProcess(GetID(), recipeData.GetProcessingTime(), recipeData.GetSuccessChance(), recipeData.GetCraftingResult());
                 progressDelegate = craftingProcess.GetProgress;
-                craftingProcess.Begin(OnCraftingFinished);
+                craftingProcess.Begin(CraftingFinished);
                 return true;
             }
+            Debug.LogError($"{nameof(CraftingProcessor)} >>> Processor {_definition} ordered to craft invalid recipe {recipeData}! Processor ID: {_processorID}");
             return false;
         }
 
-        public ICollection<IRecipeData> GetRecipes()
+        private void CraftingFinished(in Guid processorID, bool isSuccess, CraftingYield result)
         {
-            return _definition.GetAcceptedRecipes();
+            AddCraftingYieldToInventory(_resourceInventory, result);
+            OnCraftingFinished?.Invoke(processorID, isSuccess, result);
         }
 
-        private void OnCraftingFinished(ICraftable result)
+        private static bool ConsumeResources(IInventory inventory, IRecipeData recipe)
         {
-
+            var requiredResourecs = recipe.GetRequiredResources();
+            bool result = false;
+            using (TransactionScope transaction = new())
+            {
+                result = requiredResourecs.All(resource => inventory.TryRemoveItem(resource.ProcessableItem, resource.RequiredAmount));
+                if (result)
+                {
+                    transaction.Complete();
+                }
+            }
+            return result;
         }
 
-        private static bool HasRequiredResources(IInventory inventory, IRecipeData recipe)
+        private static void AddCraftingYieldToInventory(IInventory inventory, CraftingYield craftingYield)
         {
-            var requiredResources = recipe.GetRequiredResources();
-            return requiredResources.All(resource => resource is IItem item && inventory.ContainsItem(item));
+            inventory.AddItem(craftingYield.YieldItem, craftingYield.YieldAmount);
         }
 
-        private bool IsValidRecipe(IRecipeData recipe)
+        private static bool IsValidRecipe(IEnumerable<IRecipeData> acceptedRecipes, IRecipeData recipe)
         {
-            return _definition.GetAcceptedRecipes().Contains(recipe);
+            return acceptedRecipes.Any(accepted => recipe.GetID() == accepted.GetID());
         }
     }
 }

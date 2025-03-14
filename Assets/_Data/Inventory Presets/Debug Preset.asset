@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070f21c8533fdb141afaeb6e4a5fe971, type: 3}
+  m_Name: Debug Preset
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 40a470645af3805448d246081beab43f, type: 2}
+    - {fileID: 11400000, guid: 2b4c880a3dfe9084f912226fe3e5bb5d, type: 2}
+    - {fileID: 11400000, guid: 67fddb708f0f3fb439d5d9a4bd0add22, type: 2}
+    - {fileID: 11400000, guid: fbe66babf43a40840813f74cdb1f8e76, type: 2}
+    - {fileID: 11400000, guid: 6bed481fac001e4448b51ae7e013d910, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _inventoryContents
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[SmelterGame.Inventory.InventoryEntry,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
+    - Name: Item
+      Entry: 10
+      Data: 0
+    - Name: Amount
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
+    - Name: Item
+      Entry: 10
+      Data: 1
+    - Name: Amount
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
+    - Name: Item
+      Entry: 10
+      Data: 2
+    - Name: Amount
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
+    - Name: Item
+      Entry: 10
+      Data: 3
+    - Name: Amount
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
+    - Name: Item
+      Entry: 10
+      Data: 4
+    - Name: Amount
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
