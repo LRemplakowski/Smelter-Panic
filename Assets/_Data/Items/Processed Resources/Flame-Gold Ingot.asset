@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7c303608d51b284d86b33338cd5780e, type: 3}
-  m_Name: Steel Ingot
+  m_Name: Flame-Gold Ingot
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _guid
       Entry: 2
-      Data: efcff86f6ab34267aeae5c0b9e7ddf17
-  _name: Steel Ingot
-  _icon: {fileID: 21300000, guid: 6ca14e23ab6633a42a1fb5ee3bef54d7, type: 3}
-  _description: Stronger metal bar forged from Iron Ingot and Fire Shard
+      Data: 4cea2a590f6e4bc8aaa4bcf2a8c010a8
+  _name: Flame-Gold Ingot
+  _icon: {fileID: 21300000, guid: 927f5b9ac98a2a24aa4590d474106e42, type: 3}
+  _description: Advanced alloy forged from Gold Ingot + Fire Shard

@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97ca4c3af437eb4f9a252062fb1aaf9, type: 3}
+  m_Name: Runecarve_Radiant Staff
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: c360d852e34583b48aca02c722c38a10, type: 2}
+    - {fileID: 11400000, guid: cffbb5b53fe4a85428d70897aa509f1a, type: 2}
+    - {fileID: 11400000, guid: 6bed481fac001e4448b51ae7e013d910, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _recipeID
+      Entry: 2
+      Data: ac23ed1a134f4c508e27562727e10aeb
+    - Name: _craftingResult
+      Entry: 7
+      Data: 0|SmelterGame.Crafting.CraftingYield, Assembly-CSharp
+    - Name: <YieldItem>k__BackingField
+      Entry: 10
+      Data: 0
+    - Name: <YieldAmount>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _requiredResources
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[SmelterGame.Crafting.CraftingRequirement,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 2|SmelterGame.Crafting.CraftingRequirement, Assembly-CSharp
+    - Name: <ProcessableItem>k__BackingField
+      Entry: 10
+      Data: 1
+    - Name: <RequiredAmount>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|SmelterGame.Crafting.CraftingRequirement, Assembly-CSharp
+    - Name: <ProcessableItem>k__BackingField
+      Entry: 10
+      Data: 2
+    - Name: <RequiredAmount>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  _name: Rune-Carve Radiant Staff
+  _processingTime: 5
+  _successChance: 0.800000011920929

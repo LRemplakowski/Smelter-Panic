@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7c303608d51b284d86b33338cd5780e, type: 3}
-  m_Name: Steel Ingot
+  m_Name: Draconic Shield
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _guid
       Entry: 2
-      Data: efcff86f6ab34267aeae5c0b9e7ddf17
-  _name: Steel Ingot
-  _icon: {fileID: 21300000, guid: 6ca14e23ab6633a42a1fb5ee3bef54d7, type: 3}
-  _description: Stronger metal bar forged from Iron Ingot and Fire Shard
+      Data: 38aaabf5f47145f58383b4b2f3bed09a
+  _name: Draconic Shield
+  _icon: {fileID: 21300000, guid: 8bc3fc78b5f945340988cc498b89f5ab, type: 3}
+  _description: Advanced shield reinforced with Dragon Scale

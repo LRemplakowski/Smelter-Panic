@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b97ca4c3af437eb4f9a252062fb1aaf9, type: 3}
-  m_Name: Iron Ore Smelting
+  m_Name: Dragonforge_Draconic Shield
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: c37cbd0b5eac6b245b8885529793ee42, type: 2}
-    - {fileID: 11400000, guid: 40a470645af3805448d246081beab43f, type: 2}
+    - {fileID: 11400000, guid: f77aa8845fc98e14b8b4bec783799302, type: 2}
+    - {fileID: 11400000, guid: 84b543a8321c68440856e300f256f0c1, type: 2}
+    - {fileID: 11400000, guid: fbe66babf43a40840813f74cdb1f8e76, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -25,7 +26,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _recipeID
       Entry: 2
-      Data: 22beb5abd3d04a47ac360c410d622cf1
+      Data: a4f8ceb42d164b69aae771fbe303fbd5
     - Name: _craftingResult
       Entry: 7
       Data: 0|SmelterGame.Crafting.CraftingYield, Assembly-CSharp
@@ -44,7 +45,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 2|SmelterGame.Crafting.CraftingRequirement, Assembly-CSharp
@@ -58,11 +59,23 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 3|SmelterGame.Crafting.CraftingRequirement, Assembly-CSharp
+    - Name: <ProcessableItem>k__BackingField
+      Entry: 10
+      Data: 2
+    - Name: <RequiredAmount>k__BackingField
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _name: Smelt Iron Ore
-  _processingTime: 3
-  _successChance: 1
+  _name: Forge Draconic Shield
+  _processingTime: 6
+  _successChance: 0.75
