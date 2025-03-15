@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using SmelterGame.Bonuses;
 using SmelterGame.Inventory;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ namespace SmelterGame.Crafting
         [Title("Config")]
         [SerializeField]
         private IInventory _inventory;
+        [SerializeField]
+        private IBonusProvider _bonusProvider;
         [SerializeField]
         private List<IProcessorDefinition> _defaultUnlockedProcessors = new();
         [Title("Runtime")]
@@ -82,7 +85,7 @@ namespace SmelterGame.Crafting
 
         private void EnsureProcessorFactory()
         {
-            _processorFactory ??= new DefaultProcessorFactory(GetInventory());
+            _processorFactory ??= new DefaultProcessorFactory(GetInventory(), GetBonusProvider());
         }
 
         private void CraftingFinished(in Guid processorID, bool isSuccess, CraftingYield result)
@@ -98,6 +101,7 @@ namespace SmelterGame.Crafting
         }
 
         private IInventory GetInventory() => _inventory;
+        private IBonusProvider GetBonusProvider() => _bonusProvider;
         private IProcessorFactory GetProcessorFactory() => _processorFactory;
         private ICollection<IProcessorDefinition> GetDefaultUnlockedProcessors() => _defaultUnlockedProcessors;
         private Dictionary<Guid, IProcessor> GetUnlockedProcessors() => _unlockedProcessors;
@@ -112,15 +116,17 @@ namespace SmelterGame.Crafting
         private class DefaultProcessorFactory : IProcessorFactory
         {
             private readonly IInventory _processorInventory;
+            private readonly IBonusProvider _bonusProvider;
 
-            public DefaultProcessorFactory(IInventory processorInventory)
+            public DefaultProcessorFactory(IInventory processorInventory, IBonusProvider bonusProvider)
             {
                 _processorInventory = processorInventory;
+                _bonusProvider = bonusProvider;
             }
 
             public IProcessor Create(IProcessorDefinition processorDefinition)
             {
-                return new CraftingProcessor(processorDefinition, _processorInventory);
+                return new CraftingProcessor(processorDefinition, _processorInventory, _bonusProvider);
             }
         }
     }

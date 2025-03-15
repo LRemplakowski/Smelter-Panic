@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using SmelterGame.Bonuses;
 using SmelterGame.Inventory;
 using UnityEngine;
 
@@ -14,12 +15,14 @@ namespace SmelterGame.Crafting
         private readonly Guid _processorID;
         private readonly IProcessorDefinition _definition;
         private readonly IInventory _resourceInventory;
+        private readonly IBonusProvider _bonusProvider;
 
-        public CraftingProcessor(IProcessorDefinition definition, IInventory resourceInventory)
+        public CraftingProcessor(IProcessorDefinition definition, IInventory resourceInventory, IBonusProvider bonusProvider)
         {
             _definition = definition;
             _processorID = definition.GetID();
             _resourceInventory = resourceInventory;
+            _bonusProvider = bonusProvider;
         }
 
         public Guid GetID() => _processorID;
@@ -35,7 +38,7 @@ namespace SmelterGame.Crafting
                 {
                     return false;
                 }
-                var craftingProcess = new CraftingProcess(GetID(), recipeData.GetProcessingTime(), recipeData.GetSuccessChance(), recipeData.GetCraftingResult());
+                var craftingProcess = new CraftingProcess(GetID(), recipeData.GetProcessingTime(), recipeData.GetSuccessChance(), recipeData.GetCraftingResult(), _bonusProvider);
                 progressDelegate = craftingProcess.GetProgress;
                 craftingProcess.Begin(CraftingFinished);
                 return true;

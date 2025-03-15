@@ -21,6 +21,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 67fddb708f0f3fb439d5d9a4bd0add22, type: 2}
     - {fileID: 11400000, guid: fbe66babf43a40840813f74cdb1f8e76, type: 2}
     - {fileID: 11400000, guid: 6bed481fac001e4448b51ae7e013d910, type: 2}
+    - {fileID: 11400000, guid: c1cb7eddf0ad7ce47b25c124d1246b60, type: 2}
+    - {fileID: 11400000, guid: 31bd5596c7cd39446b01843399cc3b14, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -32,7 +34,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 7
     - Name: 
       Entry: 7
       Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
@@ -90,6 +92,30 @@ MonoBehaviour:
     - Name: Amount
       Entry: 3
       Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
+    - Name: Item
+      Entry: 10
+      Data: 5
+    - Name: Amount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: SmelterGame.Inventory.InventoryEntry, Assembly-CSharp
+    - Name: Item
+      Entry: 10
+      Data: 6
+    - Name: Amount
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

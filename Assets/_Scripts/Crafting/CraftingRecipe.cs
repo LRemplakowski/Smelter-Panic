@@ -17,7 +17,7 @@ namespace SmelterGame.Crafting
         [SerializeField, MinValue(0.1f)]
         private float _processingTime = 1f;
         [SerializeField, PropertyRange(0.001d, 1d)]
-        private double _successChance = 1d;
+        private float _successChance = 1f;
         [Title("References")]
         [OdinSerialize, InlineProperty(), LabelWidth(100), HideReferenceObjectPicker]
         private CraftingYield _craftingResult = new();
@@ -29,6 +29,6 @@ namespace SmelterGame.Crafting
         public CraftingYield GetCraftingResult() => _craftingResult;
         public float GetProcessingTime() => _processingTime;
         public IReadOnlyCollection<CraftingRequirement> GetRequiredResources() => _requiredResources;
-        public double GetSuccessChance() => _successChance;
+        public float GetSuccessChance() => _successChance;
     }
 }
