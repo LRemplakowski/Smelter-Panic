@@ -13,6 +13,8 @@ namespace SmelterGame.Bonuses
         [ShowInInspector, ReadOnly]
         private readonly Dictionary<BonusCategory, IBonus> _cachedActiveBonuses = new();
 
+        public static event Action<IReadOnlyCollection<IBonus>> OnActiveBonusesUpdated;
+
         private void Awake()
         {
             InventoryManager.OnInventoryUpdated += OnInventoryUpdated;
@@ -58,9 +60,8 @@ namespace SmelterGame.Bonuses
                     GetCachedActiveBonuses()[bonusCategory] = bonus;
                 }
             }
+            OnActiveBonusesUpdated?.Invoke(GetCachedActiveBonuses().Values);
         }
-
-        public IReadOnlyCollection<IBonus> GetAllActiveBonuses() => GetCachedActiveBonuses().Values;
 
         private Dictionary<Guid, IBonus> GetExistingBonuses() => _existingBonuses;
         private Dictionary<BonusCategory, IBonus> GetCachedActiveBonuses() => _cachedActiveBonuses;
