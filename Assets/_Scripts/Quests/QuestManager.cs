@@ -11,6 +11,7 @@ namespace SmelterGame.Quests
         [SerializeField]
         private IQuestPreset _startingQuestsPreset;
 
+        public static event QuestUpdateDelegate OnQuestStarted;
         public static event QuestUpdateDelegate OnQuestUpdated;
         public static event QuestUpdateDelegate OnQuestCompleted;
 
@@ -24,6 +25,7 @@ namespace SmelterGame.Quests
             var quest = questDefinition.GetQuestFactory().Create();
             quest.Initialize();
             quest.OnQuestProgressUpdated += QuestUpdated;
+            OnQuestStarted?.Invoke(quest);
         }
 
         private void QuestUpdated(IQuest quest)
