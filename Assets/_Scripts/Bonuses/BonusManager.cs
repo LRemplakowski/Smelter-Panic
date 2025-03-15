@@ -9,9 +9,9 @@ namespace SmelterGame.Bonuses
     public class BonusManager : MonoBehaviour, IBonusProvider
     {
         [ShowInInspector, ReadOnly]
-        private readonly Dictionary<Guid, IBonus> _activeBonuses = new();
+        private readonly Dictionary<Guid, IBonus> _existingBonuses = new();
         [ShowInInspector, ReadOnly]
-        private readonly Dictionary<BonusCategory, IBonus> _cachedHighestBonuses = new();
+        private readonly Dictionary<BonusCategory, IBonus> _cachedActiveBonuses = new();
 
         private void Awake()
         {
@@ -24,11 +24,11 @@ namespace SmelterGame.Bonuses
             {
                 if (amount <= 0)
                 {
-                    GetActiveBonuses().Remove(bonusDefinition.GetID());
+                    GetExistingBonuses().Remove(bonusDefinition.GetID());
                 }
                 else
                 {
-                    GetActiveBonuses()[bonusDefinition.GetID()] = bonusDefinition.GetBonusFactory().Create();
+                    GetExistingBonuses()[bonusDefinition.GetID()] = bonusDefinition.GetBonusFactory().Create();
                 }
                 UpdateHighestBonusCache();
             }
@@ -36,31 +36,33 @@ namespace SmelterGame.Bonuses
 
         public bool TryGetBonus(BonusCategory bonusCategory, out IBonus bonus)
         {
-            return GetCachedHighestBonuses().TryGetValue(bonusCategory, out bonus);
+            return GetCachedActiveBonuses().TryGetValue(bonusCategory, out bonus);
         }
 
         private void UpdateHighestBonusCache()
         {
-            GetCachedHighestBonuses().Clear();
-            foreach (var bonus in GetActiveBonuses().Values)
+            GetCachedActiveBonuses().Clear();
+            foreach (var bonus in GetExistingBonuses().Values)
             {
                 var bonusCategory = bonus.GetBonusCategory();
-                if (GetCachedHighestBonuses().TryGetValue(bonusCategory, out var current))
+                if (GetCachedActiveBonuses().TryGetValue(bonusCategory, out var current))
                 {
                     var comparison = bonus.CompareTo(current);
                     if (comparison > 0)
                     {
-                        GetCachedHighestBonuses()[bonusCategory] = bonus;
+                        GetCachedActiveBonuses()[bonusCategory] = bonus;
                     }
                 }
                 else
                 {
-                    GetCachedHighestBonuses()[bonusCategory] = bonus;
+                    GetCachedActiveBonuses()[bonusCategory] = bonus;
                 }
             }
         }
 
-        private Dictionary<Guid, IBonus> GetActiveBonuses() => _activeBonuses;
-        private Dictionary<BonusCategory, IBonus> GetCachedHighestBonuses() => _cachedHighestBonuses;
+        public IReadOnlyCollection<IBonus> GetAllActiveBonuses() => GetCachedActiveBonuses().Values;
+
+        private Dictionary<Guid, IBonus> GetExistingBonuses() => _existingBonuses;
+        private Dictionary<BonusCategory, IBonus> GetCachedActiveBonuses() => _cachedActiveBonuses;
     }
 }

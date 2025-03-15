@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 7c1aa27b4af448340a134afa49c120c5, type: 2}
     - {fileID: 11400000, guid: 25e5a05cfce7bdf4c8a2afe1ad636c64, type: 2}
     - {fileID: 11400000, guid: 47a6ce1252c7e4149b4609512eba494f, type: 2}
     SerializedBytesString: 
@@ -30,8 +31,8 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: _questReward
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: _trackedQuests
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[SmelterGame.Quests.IQuestDefinition,
@@ -41,10 +42,10 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 10
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 13
       Data: 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using SmelterGame.Bonuses;
 using UnityEngine;
 
 namespace SmelterGame.Crafting.UI
@@ -8,8 +9,10 @@ namespace SmelterGame.Crafting.UI
     public class CraftingUI : SerializedMonoBehaviour
     {
         [Title("Core Config")]
-        [SerializeField]
+        [SerializeField, Required]
         private ProcessorManager _processorManager;
+        [SerializeField, Required]
+        private IBonusProvider _bonusProvider;
         [Title("Processor Slots")]
         [SerializeField]
         private ProcessorSlotView _processorSlotPrefab;
@@ -112,7 +115,11 @@ namespace SmelterGame.Crafting.UI
 
         private void EnsureProcessorViewFactory()
         {
-            _viewFactory ??= new DefaultViewFactory(GetProcessorViewPrefab(), GetProcessorViewParent(), OnRecipeConfirmed, GetProcessorManager().CanCraftRecipe);
+            _viewFactory ??= new DefaultViewFactory(GetProcessorViewPrefab(),
+                                                    GetProcessorViewParent(),
+                                                    OnRecipeConfirmed,
+                                                    GetProcessorManager().CanCraftRecipe,
+                                                    GetBonusProvider());
         }
 
         private ProcessorSlotView GetProcessorSlotPrefab() => _processorSlotPrefab;
@@ -122,6 +129,7 @@ namespace SmelterGame.Crafting.UI
         private IProcessorSlotFactory GetProcessorSlotFactory() => _slotFactory;
         private IProcessorViewFactory GetProcessorViewFactory() => _viewFactory;
         private ProcessorManager GetProcessorManager() => _processorManager;
+        private IBonusProvider GetBonusProvider() => _bonusProvider;
 
         private interface IProcessorViewFactory
         {
@@ -134,22 +142,26 @@ namespace SmelterGame.Crafting.UI
             private readonly Transform _viewParent;
             private readonly Action<Guid, IRecipeData> _recipeConfirmedDelegate;
             private readonly RecipeValidationDelegate _processorConfirmationDelegate;
+            private readonly IBonusProvider _bonusProvider;
 
+            // Could use a builder
             public DefaultViewFactory(ProcessorDetailsView viewPrefab,
                                       Transform viewParent,
                                       Action<Guid, IRecipeData> recipeConfirmedDelegate,
-                                      RecipeValidationDelegate processorConfirmationDelegate)
+                                      RecipeValidationDelegate processorConfirmationDelegate,
+                                      IBonusProvider bonusProvider)
             {
                 _viewPrefab = viewPrefab;
                 _viewParent = viewParent;
                 _recipeConfirmedDelegate = recipeConfirmedDelegate;
                 _processorConfirmationDelegate = processorConfirmationDelegate;
+                _bonusProvider = bonusProvider;
             }
 
             public ProcessorDetailsView Create(IProcessorDefinition processorDefinition)
             {
                 var viewInstance = Instantiate(_viewPrefab, _viewParent);
-                viewInstance.Initialize(processorDefinition, _recipeConfirmedDelegate, _processorConfirmationDelegate);
+                viewInstance.Initialize(processorDefinition, _bonusProvider, _recipeConfirmedDelegate, _processorConfirmationDelegate);
                 return viewInstance;
             }
         }

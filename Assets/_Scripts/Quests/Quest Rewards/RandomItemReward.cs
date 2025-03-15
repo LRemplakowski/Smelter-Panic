@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace SmelterGame.Quests
 {
+    [CreateAssetMenu(fileName = "New Random Item Reward", menuName = "Quests/Rewards/Random Item")]
     public class RandomItemReward : AbstractItemReward
     {
         [SerializeField]

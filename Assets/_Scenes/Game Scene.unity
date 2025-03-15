@@ -839,12 +839,16 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 1571960848}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: _bonusProvider
+      Entry: 10
+      Data: 0
   _processorManager: {fileID: 1983603992}
   _processorSlotPrefab: {fileID: 3298810670626548470, guid: 4622375debf66854588b0db0c5f9cd25, type: 3}
   _processorSlotParent: {fileID: 1311513303}
