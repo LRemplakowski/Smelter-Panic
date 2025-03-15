@@ -9,6 +9,7 @@ namespace SmelterGame.Quests
         Guid GetID();
         string GetName();
         string GetDescription();
+        bool IsHidden();
         IQuestDefinition GetNextQuest();
         IRewardable GetReward();
         bool EvaluateCompleted();

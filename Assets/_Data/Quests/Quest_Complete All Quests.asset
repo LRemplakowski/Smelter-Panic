@@ -9,28 +9,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11dd790957e4c624ba5449173cd2d0a7, type: 3}
-  m_Name: Default Starting Quests
+  m_Script: {fileID: 11500000, guid: 217068ffae72680488f69d4ff592351d, type: 3}
+  m_Name: Quest_Complete All Quests
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 47a6ce1252c7e4149b4609512eba494f, type: 2}
     - {fileID: 11400000, guid: 25e5a05cfce7bdf4c8a2afe1ad636c64, type: 2}
-    - {fileID: 11400000, guid: d3596fd9fa5d5c54994666de7b099ec8, type: 2}
+    - {fileID: 11400000, guid: 47a6ce1252c7e4149b4609512eba494f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _quests
+    - Name: _questID
+      Entry: 2
+      Data: afe995a546154755b7afe55141eed6ac
+    - Name: _nextQuest
+      Entry: 6
+      Data: 
+    - Name: _questReward
+      Entry: 6
+      Data: 
+    - Name: _trackedQuests
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[SmelterGame.Quests.IQuestDefinition,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 10
       Data: 0
@@ -38,11 +46,11 @@ MonoBehaviour:
       Entry: 10
       Data: 1
     - Name: 
-      Entry: 10
-      Data: 2
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
+  _name: Complete All Quests
+  _description: Secret
+  _isHidden: 1

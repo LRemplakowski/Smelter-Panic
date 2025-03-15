@@ -51,7 +51,9 @@ namespace SmelterGame.Crafting
 
         private async Awaitable CraftRecipeAsync(CraftingCompletedCallback onFinishedCallback)
         {
-            bool success = UnityEngine.Random.Range(0f, 1f) <= _successChance;
+            float successRoll = UnityEngine.Random.Range(0f, 1f);
+            bool success = successRoll <= _successChance;
+            Debug.Log($"{nameof(CraftingProcess)} >>> Crafting success: {success}! Success chance: {_successChance:F3}; Success roll: {successRoll:F3}");
             _startTime = Time.time;
             _craftStarted = true;
             await Awaitable.WaitForSecondsAsync(_duration);

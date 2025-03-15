@@ -1,44 +1,37 @@
 using System;
 using SmelterGame.Crafting;
-using SmelterGame.Inventory;
 
 namespace SmelterGame.Quests
 {
-    public class CraftItemsQuest : IQuest
+    public class CraftItemsQuest : AbstractQuest
     {
-        public event Action<IQuest> OnQuestProgressUpdated;
+        public override event Action<IQuest> OnQuestProgressUpdated;
 
         private readonly CraftItemsQuestDefinition _questDefinition;
 
         private int _currentCraftedAmount = 0;
 
-        public CraftItemsQuest(CraftItemsQuestDefinition questDefinition)
+        public CraftItemsQuest(CraftItemsQuestDefinition questDefinition) : base(questDefinition)
         {
             _questDefinition = questDefinition;
         }
 
-        public Guid GetID() => _questDefinition.GetID();
-        public string GetName() => _questDefinition.GetName();
-        public string GetDescription() => _questDefinition.GetDescription();
-        public IQuestDefinition GetNextQuest() => _questDefinition.GetNextQuest();
-        public IRewardable GetReward() => _questDefinition.GetReward();
-
-        public bool EvaluateCompleted()
+        public override bool EvaluateCompleted()
         {
             return _currentCraftedAmount >= _questDefinition.GetRequiredAmount();
         }
 
-        public string GetProgressText()
+        public override string GetProgressText()
         {
             return $"Craft {_questDefinition.GetTrackedItem().GetName()}: {_currentCraftedAmount}/{_questDefinition.GetRequiredAmount()}";
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             ProcessorManager.OnCraftingComplete += OnItemCrafted;
         }
 
-        public void Cleanup()
+        public override void Cleanup()
         {
             ProcessorManager.OnCraftingComplete -= OnItemCrafted;
         }
