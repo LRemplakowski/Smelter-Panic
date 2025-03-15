@@ -49,6 +49,7 @@ namespace SmelterGame.Inventory.UI
                 if (cell.IsEmpty())
                 {
                     _filledCells.Remove(item.GetID());
+                    Destroy(cell.gameObject);
                 }
             }
 
