@@ -240,6 +240,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f95ce6b1de25c4aa6f98e915762a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 54b672a1838e6d14d8c04ae526437d0e, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _startingQuestsPreset
+      Entry: 10
+      Data: 0
 --- !u!1 &277168073
 GameObject:
   m_ObjectHideFlags: 0
