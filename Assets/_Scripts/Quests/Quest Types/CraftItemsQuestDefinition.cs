@@ -10,22 +10,35 @@ namespace SmelterGame.Quests
     {
         [SerializeField]
         private Guid _questID = Guid.NewGuid();
+        [SerializeField]
+        private string _name;
+        [SerializeField, MultiLineProperty]
+        private string _description;
         [SerializeField, Required]
         private IItem _trackedItem;
         [SerializeField, MinValue(1)]
-        private int _requiredAmount;
+        private int _requiredAmount = 1;
         [SerializeField]
         private IQuestDefinition _nextQuest;
+        [SerializeField]
+        private IRewardable _questReward;
 
         private IQuestFactory _questFactory;
 
         public Guid GetID() => _questID;
+        public string GetName() => _name;
+        public string GetDescription() => _description;
 
         public IQuestFactory GetQuestFactory()
         {
             EnsureQuestFactory();
             return _questFactory;
         }
+
+        public IItem GetTrackedItem() => _trackedItem;
+        public int GetRequiredAmount() => _requiredAmount;
+        public IQuestDefinition GetNextQuest() => _nextQuest;
+        public IRewardable GetReward() => _questReward;
 
         private void EnsureQuestFactory()
         {
@@ -34,23 +47,16 @@ namespace SmelterGame.Quests
 
         private class CraftItemsQuestFactory : IQuestFactory
         {
-            private readonly Guid _questID;
-            private readonly IItem _trackedItem;
-            private readonly int _requiredAmount;
-            private readonly IQuestDefinition _nextQuest;
+            private CraftItemsQuestDefinition _questDefinition;
 
             public CraftItemsQuestFactory(CraftItemsQuestDefinition questDefinition)
             {
-                _questID = questDefinition.GetID();
-                _trackedItem = questDefinition._trackedItem;
-                _requiredAmount = questDefinition._requiredAmount;
-                _nextQuest = questDefinition._nextQuest;
+                _questDefinition = questDefinition;
             }
 
             public IQuest Create()
             {
-                var quest = new CraftItemsQuest(_questID, _trackedItem, _requiredAmount, _nextQuest);
-                return quest;
+                return new CraftItemsQuest(_questDefinition);
             }
         }
     }

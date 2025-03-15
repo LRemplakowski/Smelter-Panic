@@ -8,32 +8,29 @@ namespace SmelterGame.Quests
     {
         public event Action<IQuest> OnQuestProgressUpdated;
 
-        private readonly Guid _questID;
-        private readonly IItem _trackedItem;
-        private readonly int _requiredAmount;
-        private readonly IQuestDefinition _nextQuest;
+        private readonly CraftItemsQuestDefinition _questDefinition;
 
         private int _currentCraftedAmount = 0;
 
-        public CraftItemsQuest(Guid questID, IItem trackedItem, int requiredAmount, IQuestDefinition nextQuest)
+        public CraftItemsQuest(CraftItemsQuestDefinition questDefinition)
         {
-            _questID = questID;
-            _trackedItem = trackedItem;
-            _requiredAmount = requiredAmount;
-            _nextQuest = nextQuest;
+            _questDefinition = questDefinition;
         }
 
-        public Guid GetID() => _questID;
-        public IQuestDefinition GetNextQuest() => _nextQuest;
+        public Guid GetID() => _questDefinition.GetID();
+        public string GetName() => _questDefinition.GetName();
+        public string GetDescription() => _questDefinition.GetDescription();
+        public IQuestDefinition GetNextQuest() => _questDefinition.GetNextQuest();
+        public IRewardable GetReward() => _questDefinition.GetReward();
 
         public bool EvaluateCompleted()
         {
-            return _currentCraftedAmount >= _requiredAmount;
+            return _currentCraftedAmount >= _questDefinition.GetRequiredAmount();
         }
 
         public string GetProgressText()
         {
-            return $"Craft {_trackedItem.GetName()}: {_currentCraftedAmount}/{_requiredAmount}";
+            return $"Craft {_questDefinition.GetTrackedItem().GetName()}: {_currentCraftedAmount}/{_questDefinition.GetRequiredAmount()}";
         }
 
         public void Initialize()
@@ -48,7 +45,7 @@ namespace SmelterGame.Quests
 
         private void OnItemCrafted(in Guid _, bool isSuccess, CraftingYield result)
         {
-            if (isSuccess && result.YieldItem.GetID() == _trackedItem.GetID())
+            if (isSuccess && result.YieldItem.GetID() == _questDefinition.GetTrackedItem().GetID())
             {
                 _currentCraftedAmount += result.YieldAmount;
                 OnQuestProgressUpdated?.Invoke(this);

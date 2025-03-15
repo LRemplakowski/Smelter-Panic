@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916593104b26bb944a33d16ee68f2173, type: 3}
+  m_Name: Quest_Elemental
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 5cea1362358bf074cb0898932269e4ad, type: 2}
+    - {fileID: 11400000, guid: b01a6639879437b488c061d332f1276d, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _questID
+      Entry: 2
+      Data: ab93863452d74ef6833eb69d60580c6a
+    - Name: _trackedItem
+      Entry: 10
+      Data: 0
+    - Name: _nextQuest
+      Entry: 6
+      Data: 
+    - Name: _questReward
+      Entry: 10
+      Data: 1
+  _name: Elemental
+  _description: Craft 2 Ember Blades
+  _requiredAmount: 2

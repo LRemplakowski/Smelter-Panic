@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace SmelterGame.Quests
 {
     public delegate void QuestUpdateDelegate(IQuest quest);
 
-    public class QuestManager : MonoBehaviour
+    public class QuestManager : SerializedMonoBehaviour
     {
         [SerializeField]
         private IQuestPreset _startingQuestsPreset;
